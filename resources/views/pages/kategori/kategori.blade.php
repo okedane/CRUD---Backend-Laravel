@@ -43,17 +43,96 @@
                                         <td>{{ $kategori->name }}</td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="{{ route('kategori.update', $kategori->id) }}"
-                                                    class="btn btn-sm btn-warning me-1">Edit</a>
+                                                <button type="button" class="btn btn-warning me-2" 
+                                                    data-bs-toggle="modal" data-bs-target="#update{{ $kategori->id }}">
+                                                    <i class="bi bi-pencil-square"></i> Edit
+                                                </button>
+
                                                 <form action="{{ route('kategori.destroy', $kategori->id) }}"
-                                                    method="POST" class="d-inline">
+                                                    method="POST" id="deleteForm{{ $kategori->id }}" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                    <button type="button" class="btn btn-danger"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal{{ $kategori->id }}">
+                                                        <i class="bi bi-trash"></i> Delete
+                                                    </button>
                                                 </form>
+
+                                                <div class="modal fade" id="deleteModal{{ $kategori->id }}"
+                                                    tabindex="-1" aria-labelledby="deleteModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deleteModalLabel">
+                                                                    Konfirmasi
+                                                                    Penghapusan</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Apakah Anda yakin ingin menghapus jabatan
+                                                                <strong>{{ $kategori->nama }}</strong>?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                <button type="button" class="btn btn-danger"
+                                                                    onclick="document.getElementById('deleteForm{{ $kategori->id }}').submit();">Hapus</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
+
+
+                                    <div class="modal fade text-left" id="update{{ $kategori->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="myModalLabel1">Update Kategori</h5>
+                                                    <button type="button" class="close rounded-pill"
+                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card-body">
+                                                        <form class="form form-vertical"
+                                                            action="{{ route('kategori.update', $kategori->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="form-body">
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="form-group">
+                                                                            <label for="validationCustom01">Name</label>
+                                                                            <input type="text"
+                                                                                id="validationCustom01"
+                                                                                class="form-control" name="name"
+                                                                                placeholder="Name"
+                                                                                value="{{ $kategori->name }}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary ml-1">Accept</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>

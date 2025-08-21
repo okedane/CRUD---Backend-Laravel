@@ -4,23 +4,23 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>DataTable</h3>
+                    <h3>Users</h3>
                     <p class="text-subtitle text-muted">For user to check they list</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class='breadcrumb-header float-start float-lg-end'>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Users</li>
                         </ol>
-                    </nav>
+                    </nav>  
                 </div>
             </div>
         </div>
         <section class="section">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="m-0">Film</h5>
+                    <h5 class="m-0">Users</h5>
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                         data-bs-target="#default">
                         Create
@@ -31,45 +31,36 @@
                         <table class='table table-striped w-100'>
                             <thead>
                                 <tr>
-                                    <th style="width: 10%">No</th>
-                                    <th style="width: 10%">Categori</th>
-                                    <th style="width: 10%">Title</th>
-                                    <th style="width: 10%">deskripsi</th>
-                                    <th style="width: 10%">Image</th>
-                                    <th style="width: 10%">Action</th>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($films as $film)
+                                @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $film->kategori->name }}</td>
-                                        <td>{{ $film->title }}</td>
-                                        <td>{{ $film->description }}</td>
-                                        <td>
-                                            @if ($film->image)
-                                                <img src="{{ asset('storage/' . $film->image) }}"
-                                                    alt="{{ $film->title }}" width="100">
-                                            @endif
-                                        </td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
                                         <td>
                                             <div class="d-flex">
                                                 <button type="button" class="btn btn-warning me-2"
-                                                    data-bs-toggle="modal" data-bs-target="#update{{ $film->id }}">
+                                                    data-bs-toggle="modal" data-bs-target="#update{{ $user->id }}">
                                                     <i class="bi bi-pencil-square"></i> Edit
                                                 </button>
 
-                                                <form action="{{ route('film.destroy', $film->id) }}" method="POST"
-                                                    id="deleteForm{{ $film->id }}" class="d-inline">
+                                                <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                                    id="deleteForm{{ $user->id }}" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $film->id }}">
+                                                        data-bs-target="#deleteModal{{ $user->id }}">
                                                         <i class="bi bi-trash"></i> Delete
                                                     </button>
                                                 </form>
 
-                                                <div class="modal fade" id="deleteModal{{ $film->id }}"
+                                                <div class="modal fade" id="deleteModal{{ $user->id }}"
                                                     tabindex="-1" aria-labelledby="deleteModalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog">
@@ -83,13 +74,13 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 Apakah Anda yakin ingin menghapus jabatan
-                                                                <strong>{{ $film->title }}</strong>?
+                                                                <strong>{{ $user->name }}</strong>?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Batal</button>
                                                                 <button type="button" class="btn btn-danger"
-                                                                    onclick="document.getElementById('deleteForm{{ $film->id }}').submit();">Hapus</button>
+                                                                    onclick="document.getElementById('deleteForm{{ $user->id }}').submit();">Hapus</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -98,12 +89,13 @@
                                         </td>
                                     </tr>
 
-                                    <div class="modal fade text-left" id="update{{ $film->id }}" tabindex="-1"
+
+                                    <div class="modal fade text-left" id="update{{ $user->id }}" tabindex="-1"
                                         role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="myModalLabel1">Update film</h5>
+                                                    <h5 class="modal-title" id="myModalLabel1">Update User</h5>
                                                     <button type="button" class="close rounded-pill"
                                                         data-bs-dismiss="modal" aria-label="Close">
                                                         <i data-feather="x"></i>
@@ -112,48 +104,45 @@
                                                 <div class="modal-body">
                                                     <div class="card-body">
                                                         <form class="form form-vertical"
-                                                            action="{{ route('film.update', $film->id) }}"
-                                                            method="POST"
-                                                            enctype="multipart/form-data">
+                                                            action="{{ route('user.update', $user->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="form-body">
                                                                 <div class="row">
                                                                     <div class="col-12">
                                                                         <div class="form-group">
-                                                                            <label for="validationCustom01">Kategori</label>
-                                                                            <select id="validationCustom01"
-                                                                                class="form-control" name="kategori_id">
-                                                                                <option value="">Select Kategori</option>
-                                                                                @foreach ($kategori as $kat)
-                                                                                    <option value="{{ $kat->id }}"
-                                                                                        {{ $film->kategori_id == $kat->id ? 'selected' : '' }}>
-                                                                                        {{ $kat->name }}</option>
-                                                                                @endforeach
-                                                                            </select>
+                                                                            <label for="validationCustom01">Name</label>
+                                                                            <input type="text"
+                                                                                id="validationCustom01"
+                                                                                class="form-control" name="name"
+                                                                                placeholder="Name"
+                                                                                value="{{ $user->name }}">
+                                                                            <div class="invalid-feedback">Please enter a
+                                                                                name.</div>
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="validationCustom01">Title</label>
-                                                                            <input type="text" id="validationCustom01"
-                                                                                class="form-control" name="title"
-                                                                                value="{{ $film->title }}"
-                                                                                placeholder="Title">
+                                                                            <label
+                                                                                for="validationCustom02">Email</label>
+                                                                            <input type="email"
+                                                                                id="validationCustom02"
+                                                                                class="form-control" name="email"
+                                                                                placeholder="Email"
+                                                                                value="{{ $user->email }}">
+                                                                            <div class="invalid-feedback">Please enter
+                                                                                a valid email.</div>
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <label for="validationCustom02">Description</label>
-                                                                            <textarea id="validationCustom02" class="form-control" name="description" placeholder="Description">{{ $film->description }}</textarea>
+                                                                            <label
+                                                                                for="validationCustom03">Password</label>
+                                                                            <input type="password"
+                                                                                id="validationCustom03"
+                                                                                class="form-control" name="password"
+                                                                                placeholder="Password">
+                                                                            <div class="invalid-feedback">Please enter
+                                                                                a password.</div>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="validationCustom03">Image</label>
-                                                                            @if ($film->image)
-                                                                                <div class="mb-2">
-                                                                                    <img src="{{ asset('storage/' . $film->image) }}"
-                                                                                        alt="{{ $film->title }}" width="100">
-                                                                                </div>
-                                                                            @endif
-                                                                            <input type="file" id="validationCustom03"
-                                                                                class="form-control" name="image">
-                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -161,7 +150,7 @@
                                                                 <button type="button" class="btn"
                                                                     data-bs-dismiss="modal">Close</button>
                                                                 <button type="submit"
-                                                                    class="btn btn-primary ml-1">Update</button>
+                                                                    class="btn btn-primary ml-1">Accept</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -185,44 +174,43 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Tambah Film</h5>
+                    <h5 class="modal-title" id="myModalLabel1">Tambah Users</h5>
                     <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                         <i data-feather="x"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="card-body">
-                        <form class="form form-vertical" action="{{ route('film.store') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form class="form form-vertical" action="{{ route('user.store') }}" method="POST">
                             @csrf
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="validationCustom01">Kategori</label>
-                                            <select id="validationCustom01" class="form-control" name="kategori_id">
-                                                <option value="">Select Kategori</option>
-                                                @foreach ($kategori as $kat)
-                                                    <option value="{{ $kat->id }}">{{ $kat->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <label for="validationCustom01">Name</label>
+                                            <input type="text" id="validationCustom01"   class="form-control"
+                                                name="name" placeholder="Name">
+                                            <div class="invalid-feedback">Please enter a name.</div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="validationCustom01">Title</label>
-                                            <input type="text" id="validationCustom01" class="form-control"
-                                                name="title" placeholder="Title">
+                                            <label for="validationCustom02">Email</label>
+                                            <input type="email" id="validationCustom02" class="form-control"
+                                                name="email" placeholder="Email">
+                                            <div class="invalid-feedback">Please enter a valid email.</div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="validationCustom01">Description</label>
-                                            <textarea id="validationCustom01" class="form-control" name="description" placeholder="description" rows="4"></textarea>
+                                            <label for="validationCustom03">Password</label>
+                                            <input type="password" id="validationCustom03" class="form-control"
+                                                name="password" placeholder="Password">
+                                            <div class="invalid-feedback">Please enter a password.</div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="validationCustom01">Image</label>
-                                            <input type="file" id="validationCustom01" class="form-control"
-                                                name="image">
+                                            <label for="validationCustom04">Confirm Password</label>
+                                            <input type="password" id="validationCustom04" class="form-control"
+                                                name="password_confirmation" placeholder="Confirm Password">
+                                            <div class="invalid-feedback">Please confirm your password.</div>
                                         </div>
 
-                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
