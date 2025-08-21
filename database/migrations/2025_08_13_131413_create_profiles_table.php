@@ -22,14 +22,14 @@ return new class extends Migration
             // kontak
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('province')->nullable();
-            $table->string('country')->nullable();
-            $table->string('postal_code')->nullable();
+            // $table->string('city')->nullable();
+            // $table->string('province')->nullable();
+            // $table->string('country')->nullable();
+            // $table->string('postal_code')->nullable();
 
             // tambahan opsional
             $table->date('date_of_birth')->nullable();
-            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            // $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->string('profile_picture')->nullable();
             $table->text('bio')->nullable();
 

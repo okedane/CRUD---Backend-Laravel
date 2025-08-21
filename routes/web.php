@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\web\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\web\FilmController;
 use App\Http\Controllers\web\KategoriController;
@@ -26,6 +27,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('welcome');
     });
+
+    Route::get('/profile-{id}', [ProfileController::class, 'show'])->name('profile.index');
+    Route::put('/profile-{id}-photo', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
+
 
 
     Route::resource('kategori', KategoriController::class);
