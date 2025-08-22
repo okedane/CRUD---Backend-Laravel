@@ -95,10 +95,116 @@
                         </table>
 
 
+                        <!-- Tombol untuk buka modal -->
                         <div class="mt-3">
-                            <a href="#" class="btn btn-primary rounded-pill px-4">Edit Profile</a>
+                            <button type="button" class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal"
+                                data-bs-target="#editProfileModal">
+                                Edit Profile
+                            </button>
                             <a href="/dashboard" class="btn btn-secondary rounded-pill px-4">Kembali</a>
                         </div>
+
+                        <!-- Modal Edit Profile -->
+                        <div class="modal fade" id="editProfileModal" tabindex="-1"
+                            aria-labelledby="editProfileModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content rounded-4 shadow">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editProfileModalLabel">Edit Profil</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Tutup"></button>
+                                    </div>
+                                    <form action="{{ route('profile.update', $user->id) }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <div class="modal-body">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="name" class="form-label">Nama</label>
+                                                    <input type="text" name="name" class="form-control"
+                                                        value="{{ old('name', $user->name) }}" required>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" name="email" class="form-control"
+                                                        value="{{ old('email', $user->email) }}" required>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="username" class="form-label">Username</label>
+                                                    <input type="text" name="username" class="form-control"
+                                                        value="{{ old('username', $user->profile->username ?? '') }}">
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="phone" class="form-label">Telepon</label>
+                                                    <input type="text" name="phone" class="form-control"
+                                                        value="{{ old('phone', $user->profile->phone ?? '') }}">
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label for="address" class="form-label">Alamat</label>
+                                                    <textarea name="address" class="form-control" rows="2">{{ old('address', $user->profile->address ?? '') }}</textarea>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="date_of_birth" class="form-label">Tanggal
+                                                        Lahir</label>
+                                                    <input type="date" name="date_of_birth" class="form-control"
+                                                        value="{{ old('date_of_birth', $user->profile->date_of_birth ?? '') }}">
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label for="bio" class="form-label">Bio</label>
+                                                    <textarea name="bio" class="form-control" rows="2">{{ old('bio', $user->profile->bio ?? '') }}</textarea>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="facebook" class="form-label">Facebook</label>
+                                                    <input type="url" name="facebook" class="form-control"
+                                                        value="{{ old('facebook', $user->profile->facebook ?? '') }}">
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="twitter" class="form-label">Twitter</label>
+                                                    <input type="url" name="twitter" class="form-control"
+                                                        value="{{ old('twitter', $user->profile->twitter ?? '') }}">
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="instagram" class="form-label">Instagram</label>
+                                                    <input type="url" name="instagram" class="form-control"
+                                                        value="{{ old('instagram', $user->profile->instagram ?? '') }}">
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="linkedin" class="form-label">LinkedIn</label>
+                                                    <input type="url" name="linkedin" class="form-control"
+                                                        value="{{ old('linkedin', $user->profile->linkedin ?? '') }}">
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label for="website" class="form-label">Website</label>
+                                                    <input type="url" name="website" class="form-control"
+                                                        value="{{ old('website', $user->profile->website ?? '') }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary rounded-pill"
+                                                data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-primary rounded-pill">Simpan
+                                                Perubahan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

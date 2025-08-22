@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/profile-{id}', [ProfileController::class, 'show'])->name('profile.index');
     Route::put('/profile-{id}-photo', [ProfileController::class, 'updatePhoto'])->name('profile.updatePhoto');
+    Route::put('/profile-{id}', [ProfileController::class, 'update'])->name('profile.update');
 
 
 
